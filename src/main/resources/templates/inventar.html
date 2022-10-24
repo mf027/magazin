@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>Stoc Magazin</title>
+        <link rel="stylesheet" th:href="@{/stoc-stylesheet.css}">
+    </head>
+    <body>
+        <div class="alert success" th:if="${status} == 'succes'">
+            <strong> You successfully submited the item! </strong> 
+        </div> 
+        <div class="alert failed" th:if="${status} == 'failed'">
+            <strong type = "${#strings.equals(status,'succes')} ? 'text' : 'hidden'" > Item was not submited! </strong> 
+        </div> 
+        <div class="topnav">
+            <a th:href="@{/magazin/form}">Formular</a>
+            <a th:href="@{/magazin/stoc}" class="active">Inventar</a>
+        </div>
+        <div class="container">
+            <table>
+                <tr class="head">
+                    <th>Category</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Discount</th>
+                    <th>Order date</th>
+                </tr>
+                <tr th:each="item: ${items}">
+                    <td th:text="${item.category}"></td>
+                    <td th:text="${item.name}"></td>
+                    <td type = "text" th:text="${#numbers.formatCurrency(item.price)}"></td>
+                    <td type = "text" th:text="${#numbers.formatCurrency(item.discount)}"></td>
+                    <td type = "date" th:text="${#dates.format(item.date,'dd-MM-yyyy')}"></td>
+                    <td> <a role="button" th:href="@{/magazin/update(id = ${item.id})}">Update</a> </td>
+                    <td> <a role="button" th:href="@{/magazin/delete(id = ${item.id})}">Delete</a> </td>
+                </tr>
+            </table>
+        </div>
+
+    </body>
+</html>

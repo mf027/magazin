@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <title>Stoc Magazin</title>
+        <link rel="stylesheet" th:href="@{/form-stylesheet.css}">
+    </head>
+    <body>
+        <div class="topnav">
+            <a th:href="@{/magazin/form}" class="active">Formular</a>
+            <a th:href="@{/magazin/inventar}">Inventar</a>
+        </div>
+        <div class="container">
+            <form method="post" th:object="${item}" th:action ="@{/magazin/handleSubmit}" >
+                <select class="select" th:field="*{category}">
+                    <option style="color:blue" value="">Alegeti o categorie</option>
+                    <option style="color:blue" value="Furniture">Furniture</option>
+                    <option style="color:blue" value="Office Supplies">Office Supplies</option>
+                    <option style="color:blue" value="Technology">Technology</option>
+                </select>
+                <p style="color:red" th:errors="*{category}"></p>
+                <input type="text" th:field="*{name}" placeholder="Numele obiectului">
+                <div>
+                <p style="color:red" th:errors="*{name}"></p>
+                <span>Pret</span>
+                <input class="half" type="number" step="0.01" th:field="*{price}">
+                <p style="color:red" th:errors="*{price}"></p>
+                </div>
+                <div>
+                <span>Discount</span>
+                <input class="half" type="number" step="0.01" th:field="*{discount}">
+                <p style="color:red" th:errors="*{discount}"></p>
+                </div>
+                <h4>Order Date</h4>
+                <input type="date" style="color:black" th:field="*{date}">
+                <p style="color:red" th:errors="*{date}"></p>
+                <input type="hidden" th:field="*{id}">
+                <input type="submit" value="submit">
+            </form>
+            <br><br>
+        </div>
+
+    </body>
+</html>
